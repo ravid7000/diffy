@@ -3,8 +3,13 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, lazyPlugins } from "vite-plus";
 import { playwright } from "vite-plus/test/browser-playwright";
+import { DEFAULT_BASE_PATH, SITE_ORIGIN, normalizeBasePath, seoPlugin } from "./seo/index.ts";
+
+const basePath = normalizeBasePath(process.env.BASE_PATH ?? DEFAULT_BASE_PATH);
 
 export default defineConfig({
+  base: basePath,
+  ssr: { noExternal: true },
   fmt: {},
   lint: {
     plugins: ["react", "typescript", "oxc"],
@@ -24,7 +29,11 @@ export default defineConfig({
     projects: [
       {
         extends: true,
-        test: { name: "unit", environment: "jsdom", include: ["src/**/*.test.ts"] },
+        test: {
+          name: "unit",
+          environment: "jsdom",
+          include: ["src/**/*.test.ts", "seo/**/*.test.ts"],
+        },
       },
       {
         extends: true,
@@ -42,5 +51,9 @@ export default defineConfig({
     ],
   },
   resolve: { alias: { "@": path.resolve(import.meta.dirname, "./src") } },
-  plugins: lazyPlugins(() => [react(), tailwindcss()]),
+  plugins: lazyPlugins(() => [
+    react(),
+    tailwindcss(),
+    seoPlugin({ origin: SITE_ORIGIN, basePath }),
+  ]),
 });

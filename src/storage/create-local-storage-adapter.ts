@@ -1,6 +1,9 @@
-import { attempt, isError, startsWith } from "lodash";
+import { attempt, isEmpty, isError, startsWith } from "lodash";
 import { STORAGE_PREFIX } from "./constants";
 import type { StorageAdapter } from "./types";
+
+const ownKeys = (store: Storage) =>
+  Object.keys(store).filter((key) => startsWith(key, STORAGE_PREFIX));
 
 export const createLocalStorageAdapter = (
   store: Storage = window.localStorage,
@@ -14,8 +17,9 @@ export const createLocalStorageAdapter = (
     return !isError(attempt(() => store.setItem(STORAGE_PREFIX + key, JSON.stringify(value))));
   },
   clear() {
-    Object.keys(store)
-      .filter((key) => startsWith(key, STORAGE_PREFIX))
-      .forEach((key) => store.removeItem(key));
+    ownKeys(store).forEach((key) => store.removeItem(key));
+  },
+  isEmpty() {
+    return isEmpty(ownKeys(store));
   },
 });

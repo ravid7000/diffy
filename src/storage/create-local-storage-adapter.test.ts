@@ -36,4 +36,11 @@ describe("createLocalStorageAdapter", () => {
     expect(localStorage.getItem("other")).toBe("keep");
     expect(adapter.load("k")).toBeNull();
   });
+
+  it("reports emptiness of its own keys only", () => {
+    localStorage.setItem("other", "keep");
+    expect(adapter.isEmpty()).toBe(true);
+    adapter.save("k", "v");
+    expect(adapter.isEmpty()).toBe(false);
+  });
 });

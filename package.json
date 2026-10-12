@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "build": "tsc -b && vp build",
+    "build": "tsc -b && vp build && vp build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.ts",
+    "build:diffy": "BASE_PATH=/diffy pnpm build",
     "lint": "vp lint",
     "check": "vp check",
     "test": "vp test",
