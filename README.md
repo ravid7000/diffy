@@ -1,32 +1,25 @@
-# React + TypeScript + Vite
+# Diffy
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Compare two text files, resolve changes hunk by hunk, and export the merged result.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Paste, upload, or drop source and destination files
+- Side-by-side diff with inline highlights and added/removed/modified counts
+- Per-hunk accept/reject with an editable final buffer (Monaco)
+- Format code in any panel (JSON, HTML, YAML, JS/TS, CSS via Prettier)
+- Copy or download the merged output
+- Light/dark theme, session saved in local storage
 
-## React Compiler
+## Develop
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires pnpm 12.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+pnpm install
+pnpm dev          # start dev server
+pnpm test         # unit tests
+pnpm test:e2e     # Playwright e2e
+pnpm check        # format, lint, type-check
+pnpm build        # production build
 ```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
