@@ -9,3 +9,6 @@ peerDependencyRules:
   allowedVersions:
     vite: "*"
 minimumReleaseAge: 60
+allowBuilds:
+  esbuild: true
+  workerd: true
