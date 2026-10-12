@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "diffy",
+  "account_id": "e0f3389211c895f463b38513211fb9b4",
+  "compatibility_date": "2026-10-12",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "ravid.dev/diffy", "zone_name": "ravid.dev" },
+    { "pattern": "ravid.dev/diffy/*", "zone_name": "ravid.dev" },
+  ],
+  "assets": {
+    "directory": "./dist-worker",
+    "html_handling": "auto-trailing-slash",
+  },
+}
